@@ -190,15 +190,15 @@ function nl2br(s) {
 }
 
 document.getElementById('iName').addEventListener('input', (e) => {
-  document.getElementById('txt-name').textContent = e.target.value || 'TÊN SẢN PHẨM';
+  document.getElementById('txt-name').textContent = e.target.value || '';
 });
 
 document.getElementById('iPrice').addEventListener('input', (e) => {
-  document.getElementById('txt-price').innerHTML = nl2br(e.target.value) || 'TEST: 000K<br>SHOOT/FES: 000K';
+  document.getElementById('txt-price').innerHTML = nl2br(e.target.value) || '';
 });
 
 document.getElementById('iDetail').addEventListener('input', (e) => {
-  document.getElementById('txt-detail').innerHTML = nl2br(e.target.value) || 'Chi tiết sản phẩm';
+  document.getElementById('txt-detail').innerHTML = nl2br(e.target.value) || '';
 });
 
 document.getElementById('iDisclaimer').addEventListener('input', (e) => {
