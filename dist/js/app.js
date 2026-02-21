@@ -205,9 +205,18 @@ function nl2br(s) {
   return s.replace(/\n/g, '<br>');
 }
 
-document.getElementById('iName').addEventListener('input', (e) => {
-  document.getElementById('txt-name').textContent = e.target.value || '';
+function syncTitle() {
+  const el = document.getElementById('txt-name');
+  const val = document.getElementById('iName').value || '';
+  el.innerHTML = nl2br(val);
+}
+document.getElementById('iName').addEventListener('input', syncTitle);
+
+document.getElementById('iNameFontSize').addEventListener('change', (e) => {
+  document.getElementById('txt-name').style.fontSize = e.target.value + 'px';
 });
+// Áp cỡ chữ mặc định khi load
+document.getElementById('txt-name').style.fontSize = document.getElementById('iNameFontSize').value + 'px';
 
 document.getElementById('iPrice').addEventListener('input', (e) => {
   document.getElementById('txt-price').innerHTML = nl2br(e.target.value) || '';

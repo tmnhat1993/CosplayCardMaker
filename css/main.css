@@ -240,6 +240,35 @@ label .sub {
   font-size: 0.7rem;
 }
 
+.title-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.title-options label.inline {
+  display: inline;
+  margin-bottom: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+.title-options select {
+  padding: 6px 10px;
+  border: 1.5px solid #e8ddd5;
+  border-radius: 8px;
+  font-family: 'Itim', cursive;
+  font-size: 0.9rem;
+  color: #333;
+  background: #fdfbf9;
+  cursor: pointer;
+}
+.title-options select:focus {
+  border-color: #f4873a;
+  outline: none;
+}
+
 input[type=text], textarea {
   width: 100%;
   border: 1.5px solid #e8ddd5;
@@ -400,6 +429,7 @@ input[type=range] { flex: 1; accent-color: #f4873a; cursor: pointer; }
   .img-controls .ctrl-row { font-size: 0.9rem; }
   input[type=range] { min-height: 36px; }
   .btn-sm { padding: 10px 16px; font-size: 0.9rem; min-height: 44px; }
+  .title-options select { padding: 10px 12px; font-size: 16px; min-height: 44px; }
 }
 
 /* ── DEBUG PANEL ───────────────────────────────────────── */
