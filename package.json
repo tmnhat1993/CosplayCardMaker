@@ -1,0 +1,10 @@
+{
+  "name": "cosplay-card-editor",
+  "version": "1.0.0",
+  "description": "Công cụ tạo card cosplay Nekomizu – upload ảnh, chỉnh text, export PNG 1020×1680",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "preview:dist": "npx serve dist -p 3333"
+  }
+}

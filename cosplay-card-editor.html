@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosplay Card Editor – Nekomizu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Itim&family=Alegreya+Sans:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<h1>✦ Cosplay Card Editor ✦</h1>
+
+<div class="layout">
+
+  <!-- PREVIEW -->
+  <div class="preview-col">
+    <div class="preview-label">Preview</div>
+    <div class="card-scaler">
+      <div id="card">
+
+        <div id="photo-layer">
+          <div class="photo-placeholder" id="placeholder">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            <span>Upload ảnh bên phải</span>
+          </div>
+          <img id="photo-img" src="" alt="" draggable="false">
+        </div>
+
+        <div id="txt-name">TÊN SẢN PHẨM</div>
+        <div id="txt-price">TEST: 000K<br>SHOOT/FES: 000K</div>
+        <div id="txt-detail">Chi tiết sản phẩm</div>
+        <div id="txt-disclaimer">Disclaimer</div>
+        <div id="txt-notice">Notice</div>
+
+        <img id="logo-layer" src="assets/logo.png" alt="Nekomizu">
+        <img id="frame-img" src="assets/frame.jpg" alt="">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-col">
+    <h2>Ảnh sản phẩm</h2>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" accept="image/*" id="fileInput">
+      <p>📷 Click hoặc kéo thả ảnh vào đây</p>
+      <p class="sub-text">PNG, JPG</p>
+    </div>
+    <div class="img-controls" id="imgControls">
+      <div class="ctrl-row">
+        <span>Zoom</span>
+        <input type="range" id="scaleSlider" min="20" max="400" value="100" step="1">
+        <span class="val" id="scaleVal">100%</span>
+      </div>
+      <p class="tip">Kéo ảnh trong khung preview để chỉnh vùng · Cuộn chuột để zoom</p>
+      <button class="btn-sm" id="removeBtn">✕ Xóa ảnh</button>
+    </div>
+
+    <h2>Thông tin sản phẩm</h2>
+    <div class="form-group">
+      <label>Tên sản phẩm</label>
+      <input type="text" id="iName" placeholder="VD: MIKU RASCAL (M)">
+    </div>
+    <div class="form-group">
+      <label>Giá thuê <span class="sub">(Enter xuống dòng)</span></label>
+      <textarea id="iPrice" placeholder="TEST: 300K&#10;SHOOT/FES: 550K"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Chi tiết <span class="sub">(Enter xuống dòng)</span></label>
+      <textarea id="iDetail" placeholder="Boots 39 +50&#10;Đinh ba +30&#10;Tất tự chuẩn bị / +35" style="min-height:88px;"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Disclaimer <span class="sub">(chữ đỏ italic)</span></label>
+      <input type="text" id="iDisclaimer" placeholder="Tháng 10">
+    </div>
+    <div class="form-group">
+      <label>Notice</label>
+      <input type="text" id="iNotice" placeholder="Giá chưa bao gồm giặt dưỡng">
+    </div>
+
+    <button class="btn-export" id="exportBtn">⬇ Export PNG</button>
+    <p class="export-hint">1020 × 1680 px · Tên file = tên sản phẩm</p>
+
+    <button type="button" class="btn-debug" id="debugToggle" title="Căn chỉnh vị trí text & ảnh">🐛 Debug vị trí</button>
+  </div>
+
+</div>
+
+<!-- Debug dialog: căn chỉnh vị trí text & ảnh (px, card 1020×1680) -->
+<div class="debug-overlay" id="debugOverlay" hidden>
+  <div class="debug-panel">
+    <div class="debug-header">
+      <h3>🐛 Debug vị trí</h3>
+      <button type="button" class="debug-close" id="debugClose">✕</button>
+    </div>
+    <p class="debug-hint">Chỉnh số (px), card 1020×1680. Thay đổi áp dụng ngay.</p>
+
+    <div class="debug-section">
+      <h4>#photo-layer</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-photo-top" data-el="photo-layer" data-prop="top"></label>
+        <label>left <input type="number" id="db-photo-left" data-el="photo-layer" data-prop="left"></label>
+        <label>width <input type="number" id="db-photo-width" data-el="photo-layer" data-prop="width"></label>
+        <label>height <input type="number" id="db-photo-height" data-el="photo-layer" data-prop="height"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#txt-name</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-name-top" data-el="txt-name" data-prop="top"></label>
+        <label>left <input type="number" id="db-name-left" data-el="txt-name" data-prop="left"></label>
+        <label>right <input type="number" id="db-name-right" data-el="txt-name" data-prop="right"></label>
+        <label>height <input type="number" id="db-name-height" data-el="txt-name" data-prop="height"></label>
+        <label>font-size <input type="number" id="db-name-fontSize" data-el="txt-name" data-prop="fontSize"></label>
+        <label>line-height <input type="number" id="db-name-lineHeight" data-el="txt-name" data-prop="lineHeight" step="0.1"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#txt-price</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-price-top" data-el="txt-price" data-prop="top"></label>
+        <label>left <input type="number" id="db-price-left" data-el="txt-price" data-prop="left"></label>
+        <label>right <input type="number" id="db-price-right" data-el="txt-price" data-prop="right"></label>
+        <label>font-size <input type="number" id="db-price-fontSize" data-el="txt-price" data-prop="fontSize"></label>
+        <label>line-height <input type="number" id="db-price-lineHeight" data-el="txt-price" data-prop="lineHeight" step="0.1"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#txt-detail</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-detail-top" data-el="txt-detail" data-prop="top"></label>
+        <label>left <input type="number" id="db-detail-left" data-el="txt-detail" data-prop="left"></label>
+        <label>right <input type="number" id="db-detail-right" data-el="txt-detail" data-prop="right"></label>
+        <label>font-size <input type="number" id="db-detail-fontSize" data-el="txt-detail" data-prop="fontSize"></label>
+        <label>line-height <input type="number" id="db-detail-lineHeight" data-el="txt-detail" data-prop="lineHeight" step="0.1"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#txt-disclaimer</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-disclaimer-top" data-el="txt-disclaimer" data-prop="top"></label>
+        <label>left <input type="number" id="db-disclaimer-left" data-el="txt-disclaimer" data-prop="left"></label>
+        <label>right <input type="number" id="db-disclaimer-right" data-el="txt-disclaimer" data-prop="right"></label>
+        <label>font-size <input type="number" id="db-disclaimer-fontSize" data-el="txt-disclaimer" data-prop="fontSize"></label>
+        <label>line-height <input type="number" id="db-disclaimer-lineHeight" data-el="txt-disclaimer" data-prop="lineHeight" step="0.1"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#txt-notice</h4>
+      <div class="debug-row">
+        <label>top <input type="number" id="db-notice-top" data-el="txt-notice" data-prop="top"></label>
+        <label>left <input type="number" id="db-notice-left" data-el="txt-notice" data-prop="left"></label>
+        <label>right <input type="number" id="db-notice-right" data-el="txt-notice" data-prop="right"></label>
+        <label>font-size <input type="number" id="db-notice-fontSize" data-el="txt-notice" data-prop="fontSize"></label>
+        <label>line-height <input type="number" id="db-notice-lineHeight" data-el="txt-notice" data-prop="lineHeight" step="0.1"></label>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <h4>#logo-layer</h4>
+      <div class="debug-row">
+        <label>bottom <input type="number" id="db-logo-bottom" data-el="logo-layer" data-prop="bottom"></label>
+        <label>right <input type="number" id="db-logo-right" data-el="logo-layer" data-prop="right"></label>
+        <label>width <input type="number" id="db-logo-width" data-el="logo-layer" data-prop="width"></label>
+      </div>
+    </div>
+
+    <div class="debug-actions">
+      <button type="button" class="btn-copy-css" id="debugCopyCss">📋 Copy CSS đã chỉnh</button>
+      <button type="button" class="btn-reset-debug" id="debugReset">↺ Reset về mặc định</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/debug-panel.js"></script>
+</body>
+</html>

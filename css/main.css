@@ -1,0 +1,506 @@
+/**
+ * Cosplay Card Editor – Nekomizu
+ * Bố cục theo README: #card 1020×1680, #photo-layer, #txt-*, #logo-layer, #frame-img
+ */
+
+/* ── BASE ─────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #f5efe8;
+  font-family: 'Itim', cursive;
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, #e03030, #f4873a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+}
+
+/* ── LAYOUT 2 CỘT (README: Cột trái Preview, cột phải Form) ── */
+.layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* ── CARD PREVIEW ─────────────────────────────────────── */
+.preview-col {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-label {
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: #bbb;
+  text-transform: uppercase;
+}
+
+/* Scaler wrapper — hiển thị card 35% (README: 1020×1680) */
+.card-scaler {
+  width: calc(1020px * 0.35);
+  height: calc(1680px * 0.35);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+/* Card thật 1020×1680 px */
+#card {
+  width: 1020px;
+  height: 1680px;
+  position: absolute;
+  top: 0; left: 0;
+  transform: scale(0.35);
+  transform-origin: top left;
+  background: #ffffff;
+}
+
+/* ── LAYERS TRONG #card (README cấu trúc kỹ thuật) ─────── */
+
+/* 1. Vùng ảnh: x=58,y=30 w=902,h=898 — z-index 11 để nằm trên frame (10), ảnh upload mới thấy */
+#photo-layer {
+  position: absolute;
+  top: 29px;
+  left: 56px;
+  width: 905px;
+  height: 905px;
+  overflow: hidden;
+  border: 2px solid #e28b52;
+  border-radius: 20px;
+  z-index: 11;
+  cursor: crosshair;
+  background: #f0f0f0;
+}
+
+#photo-img {
+  position: absolute;
+  /* width/height/left/top set bằng JS để giữ đúng tỉ lệ ảnh → export không bị stretch */
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
+  display: none;
+}
+
+.photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; color: #ccc; font-size: 18px;
+}
+
+/* 2. Text overlays — z-index: 11 (README: toạ độ từ exported.jpg) */
+
+/* NAME: top 1002px, Belleza Regular */
+#txt-name {
+  position: absolute;
+  top: 1002px;
+  left: 60px; right: 60px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Belleza', Georgia, serif;
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #1a1a1a;
+  text-align: center;
+  z-index: 11;
+  word-break: break-word;
+  line-height: 1.1;
+}
+
+/* PRICE: top 1148px, Itim Bold */
+#txt-price {
+  position: absolute;
+  top: 1138px;
+  left: 60px; right: 60px;
+  text-align: center;
+  font-family: 'Itim', cursive;
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+  z-index: 11;
+}
+
+/* DETAIL: top 1340px, Itim Regular */
+#txt-detail {
+  position: absolute;
+  top: 1340px;
+  left: 80px; right: 80px;
+  text-align: center;
+  font-family: 'Itim', cursive;
+  font-size: 42px;
+  color: #1a1a1a;
+  line-height: 1.25;
+  z-index: 11;
+}
+
+/* DISCLAIMER: top 1455px, Itim Italic đỏ */
+#txt-disclaimer {
+  position: absolute;
+  top: 1515px;
+  left: 80px; right: 80px;
+  text-align: center;
+  font-family: 'Itim', cursive;
+  font-size: 40px;
+  font-style: italic;
+  color: #e03030;
+  line-height: 1.4;
+  z-index: 11;
+}
+
+/* NOTICE: top 1580px, Alegreya Sans Bold Italic, nhường logo */
+#txt-notice {
+  position: absolute;
+  top: 1580px;
+  left: 80px; right: 80px;
+  text-align: center;
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 40px;
+  color: #1a1a1a;
+  line-height: 1.4;
+  z-index: 11;
+}
+
+/* 3. LOGO: bottom 24px, right 64px, 118px (README) */
+#logo-layer {
+  position: absolute;
+  bottom: 24px;
+  right: 64px;
+  width: 118px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* 4. Frame empty.png phủ trên cùng, z-index: 10 */
+#frame-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1020px;
+  height: 1680px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── FORM PANEL ───────────────────────────────────────── */
+.form-col {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+
+.form-col h2 {
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #f0e8df;
+}
+
+.form-col h2:nth-of-type(2) {
+  margin-top: 20px;
+}
+
+.form-group { margin-bottom: 16px; }
+
+label {
+  display: block;
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-size: 0.77rem;
+  color: #777;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+label .sub {
+  font-weight: 400;
+  color: #bbb;
+  text-transform: none;
+  font-size: 0.7rem;
+}
+
+input[type=text], textarea {
+  width: 100%;
+  border: 1.5px solid #e8ddd5;
+  border-radius: 10px;
+  padding: 9px 13px;
+  font-family: 'Itim', cursive;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fdfbf9;
+  outline: none;
+  transition: border-color .2s;
+  resize: vertical;
+}
+
+input[type=text]:focus, textarea:focus {
+  border-color: #f4873a;
+  background: #fff;
+}
+
+textarea { min-height: 68px; }
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed #f4873a;
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+  cursor: pointer;
+  background: #fff9f5;
+  position: relative;
+  transition: background .2s;
+}
+
+.upload-zone:hover, .upload-zone.drag-over { background: #fff0e5; }
+
+.upload-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; font-size: 0;
+}
+
+.upload-zone p { color: #f4873a; font-size: 0.88rem; margin-top: 4px; }
+.upload-zone .sub-text { color: #ccc; font-size: 0.72rem; margin-top: 2px; }
+
+/* Image controls */
+.img-controls {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #f0e8e0;
+}
+
+.img-controls.active { display: flex; }
+
+.ctrl-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #888;
+}
+
+.ctrl-row span.val {
+  width: 42px; text-align: right;
+  font-family: 'Alegreya Sans', serif;
+  font-size: 0.78rem;
+  color: #aaa;
+}
+
+input[type=range] { flex: 1; accent-color: #f4873a; cursor: pointer; }
+
+.btn-sm {
+  background: none;
+  border: 1.5px solid #e03030;
+  color: #e03030;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: 'Itim', cursive;
+  align-self: flex-start;
+  transition: background .15s;
+}
+
+.btn-sm:hover { background: #fff0f0; }
+
+.tip {
+  font-size: 0.72rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Export */
+.btn-export {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  background: linear-gradient(90deg, #e03030, #f4873a);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Alegreya Sans', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(230,80,40,.25);
+  transition: opacity .2s, transform .1s;
+}
+
+.btn-export:hover { opacity: .9; transform: translateY(-1px); }
+.btn-export:active { transform: translateY(0); opacity: 1; }
+.btn-export:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+.export-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #ccc;
+  margin-top: 6px;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .card-scaler { width: calc(1020px * 0.28); height: calc(1680px * 0.28); }
+  #card { transform: scale(0.28); }
+}
+
+/* ── DEBUG PANEL ───────────────────────────────────────── */
+.btn-debug {
+  margin-top: 16px;
+  padding: 8px 14px;
+  background: #2d2d2d;
+  color: #eee;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: 'Alegreya Sans', serif;
+}
+.btn-debug:hover { background: #444; color: #fff; }
+
+.debug-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 20px;
+  overflow: auto;
+}
+.debug-overlay[hidden] { display: none; }
+
+.debug-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  max-width: 420px;
+  width: 100%;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.debug-header h3 { font-size: 1.1rem; color: #333; margin: 0; }
+.debug-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+  padding: 4px 8px;
+  line-height: 1;
+}
+.debug-close:hover { color: #333; }
+
+.debug-hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.debug-section {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+.debug-section:last-of-type { border-bottom: none; }
+.debug-section h4 {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 8px;
+  font-family: 'Alegreya Sans', serif;
+}
+
+.debug-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.debug-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+}
+.debug-row input[type=number] {
+  width: 56px;
+  padding: 4px 6px;
+  font-size: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+}
+.debug-row input[type=number]:focus {
+  border-color: #f4873a;
+  outline: none;
+}
+
+.debug-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+.btn-copy-css, .btn-reset-debug {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: 'Itim', cursive;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+}
+.btn-copy-css:hover, .btn-reset-debug:hover { background: #eee; }
+.btn-copy-css { background: #e8f5e9; border-color: #a5d6a7; }
+.btn-copy-css:hover { background: #c8e6c9; }
+.btn-reset-debug { color: #666; }
+.btn-reset-debug:hover { border-color: #e03030; color: #e03030; }
