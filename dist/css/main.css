@@ -110,7 +110,7 @@ h1 {
 
 /* 2. Text overlays — z-index: 11 (README: toạ độ từ exported.jpg) */
 
-/* NAME: top 1002px, Belleza Regular */
+/* NAME: top 1002px, Belleza Regular, luôn CAPS */
 #txt-name {
   position: absolute;
   top: 1002px;
@@ -120,7 +120,7 @@ h1 {
   align-items: center;
   justify-content: center;
   font-family: 'Belleza', Georgia, serif;
-  font-size: 60px;
+  font-size: 70px;
   font-weight: 700;
   letter-spacing: 3px;
   color: #1a1a1a;
@@ -128,20 +128,22 @@ h1 {
   z-index: 11;
   word-break: break-word;
   line-height: 1.1;
+  text-transform: uppercase;
 }
 
-/* PRICE: top 1148px, Itim Bold */
+/* PRICE: top 1138px, Itim Bold, luôn CAPS */
 #txt-price {
   position: absolute;
   top: 1138px;
   left: 60px; right: 60px;
   text-align: center;
   font-family: 'Itim', cursive;
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 700;
   color: #1a1a1a;
   line-height: 1.3;
   z-index: 11;
+  text-transform: uppercase;
 }
 
 /* DETAIL: top 1340px, Itim Regular */
@@ -151,27 +153,27 @@ h1 {
   left: 80px; right: 80px;
   text-align: center;
   font-family: 'Itim', cursive;
-  font-size: 42px;
+  font-size: 45px;
   color: #1a1a1a;
   line-height: 1.25;
   z-index: 11;
 }
 
-/* DISCLAIMER: top 1455px, Itim Italic đỏ */
+/* DISCLAIMER: sát Notice, Itim Italic đỏ */
 #txt-disclaimer {
   position: absolute;
-  top: 1515px;
+  top: 1545px;
   left: 80px; right: 80px;
   text-align: center;
   font-family: 'Itim', cursive;
-  font-size: 40px;
+  font-size: 42px;
   font-style: italic;
   color: #e03030;
   line-height: 1.4;
   z-index: 11;
 }
 
-/* NOTICE: top 1580px, Alegreya Sans Bold Italic, nhường logo */
+/* NOTICE: top 1580px, Alegreya Sans Bold Italic */
 #txt-notice {
   position: absolute;
   top: 1580px;
@@ -180,7 +182,7 @@ h1 {
   font-family: 'Alegreya Sans', serif;
   font-weight: 700;
   font-style: italic;
-  font-size: 40px;
+  font-size: 45px;
   color: #1a1a1a;
   line-height: 1.4;
   z-index: 11;
@@ -366,6 +368,37 @@ input[type=range] { flex: 1; accent-color: #f4873a; cursor: pointer; }
   .layout { grid-template-columns: 1fr; }
   .card-scaler { width: calc(1020px * 0.28); height: calc(1680px * 0.28); }
   #card { transform: scale(0.28); }
+
+  /* Mobile: dễ nhập hơn — chữ ≥16px tránh zoom iOS, ô to dễ chạm */
+  body { padding: 16px 12px 32px; }
+  .form-col { padding: 20px 16px; }
+  .form-group { margin-bottom: 18px; }
+  label { font-size: 0.85rem; margin-bottom: 6px; }
+  input[type=text],
+  textarea {
+    font-size: 16px; /* ≥16px: Safari iOS không zoom khi focus */
+    padding: 14px 16px;
+    min-height: 48px;
+    border-radius: 12px;
+  }
+  textarea {
+    min-height: 96px;
+    padding-top: 14px;
+  }
+  .upload-zone {
+    padding: 22px 16px;
+    min-height: 80px;
+  }
+  .upload-zone p { font-size: 1rem; }
+  .upload-zone .sub-text { font-size: 0.85rem; }
+  .btn-export {
+    padding: 16px;
+    font-size: 1.1rem;
+    min-height: 52px;
+  }
+  .img-controls .ctrl-row { font-size: 0.9rem; }
+  input[type=range] { min-height: 36px; }
+  .btn-sm { padding: 10px 16px; font-size: 0.9rem; min-height: 44px; }
 }
 
 /* ── DEBUG PANEL ───────────────────────────────────────── */

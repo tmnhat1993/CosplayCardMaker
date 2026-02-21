@@ -8,11 +8,11 @@ const CARD_ID = 'card';
 // Giá trị mặc định (khớp css/main.css) — dùng khi reset & khi lấy giá trị lần đầu
 const DEFAULTS = {
   'photo-layer': { top: 29, left: 56, width: 905, height: 905 },
-  'txt-name': { top: 1002, left: 60, right: 60, height: 70, fontSize: 60, lineHeight: 1.1 },
-  'txt-price': { top: 1138, left: 60, right: 60, fontSize: 48, lineHeight: 1.3 },
-  'txt-detail': { top: 1340, left: 80, right: 80, fontSize: 42, lineHeight: 1.25 },
-  'txt-disclaimer': { top: 1515, left: 80, right: 80, fontSize: 40, lineHeight: 1.4 },
-  'txt-notice': { top: 1580, left: 80, right: 80, fontSize: 40, lineHeight: 1.4 },
+  'txt-name': { top: 1002, left: 60, right: 60, height: 70, fontSize: 70, lineHeight: 1.1 },
+  'txt-price': { top: 1138, left: 60, right: 60, fontSize: 52, lineHeight: 1.3 },
+  'txt-detail': { top: 1340, left: 80, right: 80, fontSize: 45, lineHeight: 1.25 },
+  'txt-disclaimer': { top: 1525, left: 80, right: 80, fontSize: 42, lineHeight: 1.4 },
+  'txt-notice': { top: 1580, left: 80, right: 80, fontSize: 45, lineHeight: 1.4 },
 };
 
 function getCard() {

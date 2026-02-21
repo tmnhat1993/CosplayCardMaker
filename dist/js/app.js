@@ -87,6 +87,22 @@ uploadZone.addEventListener('drop', (e) => {
   if (f && f.type.startsWith('image/')) loadFile(f);
 });
 
+// Paste ảnh từ clipboard (copy ảnh từ web / màn hình)
+document.addEventListener('paste', (e) => {
+  const items = e.clipboardData?.items;
+  if (!items) return;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      const file = items[i].getAsFile();
+      if (file) {
+        loadFile(file);
+        e.preventDefault();
+      }
+      break;
+    }
+  }
+});
+
 function loadFile(file) {
   if (!photoImg || !placeholder) return;
   const reader = new FileReader();
