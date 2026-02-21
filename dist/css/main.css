@@ -35,13 +35,16 @@ h1 {
 }
 
 /* ── CARD PREVIEW ─────────────────────────────────────── */
+/* Mặc định static (mobile cuộn bình thường); sticky chỉ trên desktop */
 .preview-col {
-  position: sticky;
-  top: 20px;
+  position: static;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+}
+@media (min-width: 901px) {
+  .preview-col { position: sticky; top: 20px; }
 }
 
 .preview-label {
@@ -395,7 +398,6 @@ input[type=range] { flex: 1; accent-color: #f4873a; cursor: pointer; }
 /* ── RESPONSIVE ────────────────────────────────────────── */
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }
-  .preview-col { position: static; } /* preview cuộn theo trang, không dính màn hình */
   .card-scaler { width: calc(1020px * 0.28); height: calc(1680px * 0.28); }
   #card { transform: scale(0.28); }
 
