@@ -13,7 +13,6 @@ const DEFAULTS = {
   'txt-detail': { top: 1340, left: 80, right: 80, fontSize: 42, lineHeight: 1.25 },
   'txt-disclaimer': { top: 1515, left: 80, right: 80, fontSize: 40, lineHeight: 1.4 },
   'txt-notice': { top: 1580, left: 80, right: 80, fontSize: 40, lineHeight: 1.4 },
-  'logo-layer': { bottom: 24, right: 64, width: 118 },
 };
 
 function getCard() {
