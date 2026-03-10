@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 
+# dist/ — giữ track để push & deploy (build: node scripts/build.js)
+
 # OS
 .DS_Store
 Thumbs.db
