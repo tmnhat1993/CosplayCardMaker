@@ -222,6 +222,32 @@ document.getElementById('iPrice').addEventListener('input', (e) => {
   document.getElementById('txt-price').innerHTML = nl2br(e.target.value) || '';
 });
 
+const DETAIL_DEFAULT_TOP = 1340;
+const EXTRA_DETAIL_GAP = 10;
+
+function updateDetailTop() {
+  const extraEl = document.getElementById('txt-extra');
+  const detailEl = document.getElementById('txt-detail');
+  if (document.getElementById('iExtra').value.trim()) {
+    detailEl.style.top = (DETAIL_DEFAULT_TOP + extraEl.offsetHeight + EXTRA_DETAIL_GAP) + 'px';
+  } else {
+    detailEl.style.top = DETAIL_DEFAULT_TOP + 'px';
+  }
+}
+
+document.getElementById('iExtra').addEventListener('input', (e) => {
+  const val = e.target.value || '';
+  const extraEl = document.getElementById('txt-extra');
+  extraEl.innerHTML = nl2br(val);
+  if (val.trim()) {
+    extraEl.style.display = 'block';
+    requestAnimationFrame(updateDetailTop);
+  } else {
+    extraEl.style.display = 'none';
+    document.getElementById('txt-detail').style.top = DETAIL_DEFAULT_TOP + 'px';
+  }
+});
+
 document.getElementById('iDetail').addEventListener('input', (e) => {
   document.getElementById('txt-detail').innerHTML = nl2br(e.target.value) || '';
 });

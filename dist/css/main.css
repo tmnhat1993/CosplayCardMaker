@@ -149,6 +149,20 @@ h1 {
   text-transform: uppercase;
 }
 
+/* EXTRA (trên Chi tiết): cùng vị trí/cỡ chữ với Detail, màu xanh #002BFF */
+#txt-extra {
+  position: absolute;
+  top: 1340px;
+  left: 80px; right: 80px;
+  text-align: center;
+  font-family: 'Itim', cursive;
+  font-size: 45px;
+  color: #002BFF;
+  line-height: 1.25;
+  z-index: 11;
+  display: none;
+}
+
 /* DETAIL: top 1340px, Itim Regular */
 #txt-detail {
   position: absolute;
