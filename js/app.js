@@ -545,4 +545,4 @@ captureFormState("layout2");
 layoutFormState.layout2.iNameFontSize = "60";
 if (!layoutFormState.layout1.iNameFontSize) layoutFormState.layout1.iNameFontSize = "70";
 
-switchLayout("layout2");
+switchLayout("layout1");
