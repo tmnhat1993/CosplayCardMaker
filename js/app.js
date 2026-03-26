@@ -417,10 +417,9 @@ function syncDescriptionsAndDisclaimer() {
     }
 
     const disclaimerLines = disclaimerRaw ? disclaimerRaw.split("\n") : [];
-    const shownDisclaimer = disclaimerLines.slice(0, Math.max(0, maxLines - usedLines));
-    disclaimerEl.innerHTML = nl2br(shownDisclaimer.join("\n"));
-    disclaimerEl.style.top = `${baseTop + usedLines * lineHeight}px`;
-    disclaimerEl.style.display = shownDisclaimer.length ? "block" : "none";
+    disclaimerEl.innerHTML = nl2br(disclaimerLines.join("\n"));
+    disclaimerEl.style.top = "";
+    disclaimerEl.style.display = disclaimerLines.length ? "block" : "none";
     detailEl.style.display = "none";
     extraEl.style.display = "none";
     return;

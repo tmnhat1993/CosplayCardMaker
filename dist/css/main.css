@@ -306,10 +306,6 @@ body.layout-2 .preview-label {
   text-align: center;
 }
 
-body.layout-2 #card {
-  transform: scale(calc(min(100vw, 820px) / 1260));
-}
-
 body.layout-2 #photo-layer {
   top: 20px;
   left: 20px;
@@ -350,8 +346,7 @@ body.layout-2 #txt-price {
 body.layout-2 #txt-desc1,
 body.layout-2 #txt-desc2,
 body.layout-2 #txt-desc3,
-body.layout-2 #txt-desc4,
-body.layout-2 #txt-disclaimer {
+body.layout-2 #txt-desc4 {
   position: absolute;
   top: 244px;
   left: 668px;
@@ -379,6 +374,15 @@ body.layout-2 #txt-notice {
 }
 
 body.layout-2 #txt-disclaimer {
+  position: absolute;
+  top: 544px;
+  left: 668px;
+  right: 40px;
+  font-family: "Itim", cursive;
+  font-size: 32px;
+  line-height: 36px;
+  text-align: center;
+  z-index: 11;
   color: #e03030;
 }
 
@@ -698,17 +702,23 @@ input[type="range"] {
 
   /* Mobile: layout 2 full width giống layout 1 */
   body.layout-2 .layout {
-    justify-items: stretch;
+    justify-items: center;
   }
   body.layout-2 .preview-col {
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    align-items: center;
   }
   body.layout-2 .form-col {
     width: 100%;
   }
   body.layout-2 .card-scaler {
-    width: 100%;
-    height: auto;
+    width: calc(var(--card-width, 1260px) * 0.28);
+    height: calc(var(--card-height, 640px) * 0.28);
+    border-radius: 6px;
   }
 }
 

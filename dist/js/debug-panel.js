@@ -84,12 +84,7 @@ function applyInputToCard(input) {
 function openPanel() {
   const overlay = document.getElementById('debugOverlay');
   const toggle = document.getElementById('debugToggle');
-  const disclaimerSection = document.getElementById('debugDisclaimerSection');
   if (!overlay) return;
-  if (disclaimerSection) {
-    const isLayout2 = document.body.classList.contains('layout-2');
-    disclaimerSection.style.display = isLayout2 ? 'none' : '';
-  }
   fillInputsFromDom();
   overlay.hidden = false;
   if (toggle) toggle.textContent = '✕ Tắt Debug';
