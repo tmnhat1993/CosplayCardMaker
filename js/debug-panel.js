@@ -83,14 +83,30 @@ function applyInputToCard(input) {
 
 function openPanel() {
   const overlay = document.getElementById('debugOverlay');
+  const toggle = document.getElementById('debugToggle');
+  const disclaimerSection = document.getElementById('debugDisclaimerSection');
   if (!overlay) return;
+  if (disclaimerSection) {
+    const isLayout2 = document.body.classList.contains('layout-2');
+    disclaimerSection.style.display = isLayout2 ? 'none' : '';
+  }
   fillInputsFromDom();
   overlay.hidden = false;
+  if (toggle) toggle.textContent = '✕ Tắt Debug';
 }
 
 function closePanel() {
   const overlay = document.getElementById('debugOverlay');
+  const toggle = document.getElementById('debugToggle');
   if (overlay) overlay.hidden = true;
+  if (toggle) toggle.textContent = '🐛 Debug vị trí';
+}
+
+function togglePanel() {
+  const overlay = document.getElementById('debugOverlay');
+  if (!overlay) return;
+  if (overlay.hidden) openPanel();
+  else closePanel();
 }
 
 function resetToDefaults() {
@@ -158,11 +174,8 @@ function init() {
   const copyBtn = document.getElementById('debugCopyCss');
   const resetBtn = document.getElementById('debugReset');
 
-  if (toggle) toggle.addEventListener('click', openPanel);
+  if (toggle) toggle.addEventListener('click', togglePanel);
   if (closeBtn) closeBtn.addEventListener('click', closePanel);
-  if (overlay) {
-    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePanel(); });
-  }
   if (copyBtn) copyBtn.addEventListener('click', copyCssToClipboard);
   if (resetBtn) resetBtn.addEventListener('click', resetToDefaults);
 

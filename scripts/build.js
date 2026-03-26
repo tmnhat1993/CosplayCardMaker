@@ -33,8 +33,8 @@ console.log('Build dist/...\n');
 
 mkdirp(DIST);
 
-// index.html (từ cosplay-card-editor.html)
-const htmlSrc = path.join(ROOT, 'cosplay-card-editor.html');
+// index.html (entry source)
+const htmlSrc = path.join(ROOT, 'index.html');
 const htmlDest = path.join(DIST, 'index.html');
 let html = fs.readFileSync(htmlSrc, 'utf8');
 fs.writeFileSync(htmlDest, html);
