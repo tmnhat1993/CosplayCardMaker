@@ -40,7 +40,7 @@ Mở `cosplay-card-editor.html` bằng bất kỳ trình duyệt nào (Chrome, E
 | **Giá thuê** | Itim Bold | Ngay dưới tên |
 | **Chi tiết** | Itim Regular | Hộp dưới cùng |
 | **Disclaimer** | Itim Italic – chữ đỏ | Sau chi tiết |
-| **Notice** | Alegreya Sans Bold Italic | Cuối card |
+| **Notice** | Montserrat SemiBold Italic, đỏ #FF0000 | Cuối card; có thể thêm khu vực sau dấu ` - ` |
 
 > **Xuống dòng**: Nhấn Enter trong textarea, card sẽ tự thêm dòng mới.
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cosplay Card Editor – Nekomizu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Itim&family=Alegreya+Sans:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Itim&family=Alegreya+Sans:ital,wght@0,400;0,700;1,700&family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -163,6 +163,15 @@
     <div class="form-group">
       <label>Notice</label>
       <input type="text" id="iNotice" value="Giá chưa bao gồm giặt dưỡng" placeholder="Giá chưa bao gồm giặt dưỡng">
+    </div>
+    <div class="form-group">
+      <label for="iArea">Khu vực</label>
+      <select id="iArea">
+        <option value="" selected>— Không chọn —</option>
+        <option value="Gò Vấp (D)">Gò Vấp (D)</option>
+        <option value="Gò Vấp ( N )">Gò Vấp ( N )</option>
+        <option value="Tân Phú">Tân Phú</option>
+      </select>
     </div>
 
     <button class="btn-export" id="exportBtn">⬇ Export PNG</button>

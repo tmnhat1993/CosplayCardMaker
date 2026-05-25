@@ -44,7 +44,7 @@ let basePhotoWidth = 0,
   basePhotoHeight = 0,
   basePhotoLeft = 0,
   basePhotoTop = 0;
-const SHARED_INPUT_IDS = ["iName", "iNameFontSize", "iPrice", "iDisclaimer", "iNotice"];
+const SHARED_INPUT_IDS = ["iName", "iNameFontSize", "iPrice", "iDisclaimer", "iNotice", "iArea"];
 const LAYOUT_INPUT_IDS = {
   layout1: ["iDetail", "iExtra"],
   layout2: [
@@ -127,6 +127,7 @@ function switchLayout(layoutKey) {
   syncTitle();
   syncPrice();
   syncDescriptionsAndDisclaimer();
+  syncNotice();
   updatePreviewScale();
   if (loaded) {
     setTimeout(() => sizePhotoToFit(), 0);
@@ -475,9 +476,20 @@ document.getElementById("iDisclaimer").addEventListener("input", syncDescription
 document.getElementById("iDetail").addEventListener("input", syncDescriptionsAndDisclaimer);
 document.getElementById("iExtra").addEventListener("input", syncDescriptionsAndDisclaimer);
 
-document.getElementById("iNotice").addEventListener("input", (e) => {
-  document.getElementById("txt-notice").innerHTML = nl2br(e.target.value) || "";
-});
+function syncNotice() {
+  const noticeInput = document.getElementById("iNotice");
+  const areaSelect = document.getElementById("iArea");
+  const txtNotice = document.getElementById("txt-notice");
+  if (!noticeInput || !txtNotice) return;
+  let text = noticeInput.value.trim();
+  const area = areaSelect?.value?.trim() || "";
+  if (area) text = text ? `${text} - ${area}` : area;
+  txtNotice.innerHTML = nl2br(text) || "";
+}
+
+document.getElementById("iNotice").addEventListener("input", syncNotice);
+document.getElementById("iArea").addEventListener("change", syncNotice);
+syncNotice();
 
 // ─── EXPORT PNG 1020×1680 ────────────────────────────────
 document.getElementById("exportBtn").addEventListener("click", async () => {

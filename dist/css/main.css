@@ -230,18 +230,18 @@ h1 {
   z-index: 11;
 }
 
-/* NOTICE: top 1580px, Alegreya Sans Bold Italic */
+/* NOTICE: top 1580px, Montserrat SemiBold Italic */
 #txt-notice {
   position: absolute;
   top: 1580px;
   left: 80px;
   right: 80px;
   text-align: center;
-  font-family: "Alegreya Sans", serif;
-  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   font-style: italic;
-  font-size: 45px;
-  color: #1a1a1a;
+  font-size: 40px;
+  color: #ff0000;
   line-height: 1.4;
   z-index: 11;
 }
@@ -368,9 +368,8 @@ body.layout-2 #txt-notice {
   top: 579px;
   left: 668px;
   right: 40px;
-  font-size: 29px;
+  font-size: 26px;
   line-height: 32px;
-  color: #1a1a1a;
 }
 
 body.layout-2 #txt-disclaimer {
