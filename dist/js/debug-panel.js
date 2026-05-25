@@ -12,7 +12,7 @@ const DEFAULTS = {
   'txt-price': { top: 1138, left: 60, right: 60, fontSize: 52, lineHeight: 1.3 },
   'txt-detail': { top: 1340, left: 80, right: 80, fontSize: 45, lineHeight: 1.25 },
   'txt-disclaimer': { top: 1525, left: 80, right: 80, fontSize: 42, lineHeight: 1.4 },
-  'txt-notice': { top: 1580, left: 80, right: 80, fontSize: 40, lineHeight: 1.4 },
+  'txt-notice': { top: 1580, left: 80, right: 80, fontSize: 36, lineHeight: 1.4 },
 };
 
 function getCard() {

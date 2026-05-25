@@ -240,7 +240,7 @@ h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-style: italic;
-  font-size: 40px;
+  font-size: 36px;
   color: #ff0000;
   line-height: 1.4;
   z-index: 11;
@@ -368,7 +368,7 @@ body.layout-2 #txt-notice {
   top: 579px;
   left: 668px;
   right: 40px;
-  font-size: 26px;
+  font-size: 23px;
   line-height: 32px;
 }
 
@@ -466,6 +466,7 @@ label .sub {
   outline: none;
 }
 
+.form-group > select,
 input[type="text"],
 textarea {
   width: 100%;
@@ -481,6 +482,12 @@ textarea {
   resize: vertical;
 }
 
+.form-group > select {
+  cursor: pointer;
+  resize: none;
+}
+
+.form-group > select:focus,
 input[type="text"]:focus,
 textarea:focus {
   border-color: #f4873a;
@@ -656,6 +663,7 @@ input[type="range"] {
     font-size: 0.85rem;
     margin-bottom: 6px;
   }
+  .form-group > select,
   input[type="text"],
   textarea {
     font-size: 16px; /* ≥16px: Safari iOS không zoom khi focus */
