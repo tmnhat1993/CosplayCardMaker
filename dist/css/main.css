@@ -456,7 +456,7 @@ label .sub {
   border: 1.5px solid #e8ddd5;
   border-radius: 8px;
   font-family: "Itim", cursive;
-  font-size: 0.9rem;
+  font-size: 16px; /* ≥16px: Safari iOS không zoom khi focus */
   color: #333;
   background: #fdfbf9;
   cursor: pointer;
@@ -474,7 +474,7 @@ textarea {
   border-radius: 10px;
   padding: 9px 13px;
   font-family: "Itim", cursive;
-  font-size: 0.95rem;
+  font-size: 16px; /* ≥16px: Safari iOS không zoom khi focus */
   color: #333;
   background: #fdfbf9;
   outline: none;
@@ -834,7 +834,7 @@ input[type="range"] {
 .debug-row input[type="number"] {
   width: 56px;
   padding: 4px 6px;
-  font-size: 0.8rem;
+  font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-family: monospace;
